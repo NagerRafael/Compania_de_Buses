@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Admin | Secretarias{% endblock %}
+
+{% block body %}
+  <h2>Secretarias</h2>
+  {% if not lista is empty %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Correo electrónico</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for secretaria in lista %}
+            <tr>
+                <td>{{secretaria.idUsuario}}</td>
+                <td>{{secretaria.nombre}}</td>
+                <td>{{secretaria.email}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>No hay secretarias para presentar</p>
+{% endif %}
+{% endblock %}

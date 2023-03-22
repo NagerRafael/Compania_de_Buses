@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Cliente | Home{% endblock %}
+
+{% block body %}
+
+  <h2>Reservas disponibles</h2>
+  {% if not lista is empty %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Info bus</th>
+                <th>Horario</th>
+                <th>Estado bus</th>
+                <th>Reservar</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for reserva in lista %}
+            <tr>
+                <td>{{reserva.idBus.informacion}}</td>
+                <td>{{reserva.horario.format('d/m/Y H:i:s')}}</td>
+                 <td>{{reserva.idBus.estadoBus}}</td>
+                <td><a href="{{path('app_user_reserva',{id:reserva.idReserva})}}" class="btn btn-success">Aceptar</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>No hay reservas para presentar</p>
+{% endif %}
+{% endblock %}

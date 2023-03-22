@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('app') }}
+        {% endblock %}
+
+        {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+        {% endblock %}
+    </head>
+    <body>
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #9aaebd;">
+      {% if is_granted('ROLE_CLIENTE')%}
+      <span class="navbar-brand mb-0 h1">Cliente</span>
+     {% elseif is_granted('ROLE_ADMIN')%}
+      <span class="navbar-brand mb-0 h1">Administrador</span>
+     {% elseif is_granted('ROLE_SECRETARIA')%}
+      <span class="navbar-brand mb-0 h1">Secretaria</span>
+     {% endif %}
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav ml-auto">
+       {% if is_granted('ROLE_CLIENTE')%}
+        <a class="nav-link" href="{{path('app_user')}}">Inicio</a>
+        <a class="nav-link" href="{{path('app_user_lista')}}">Mis reservas</a>
+        {% elseif is_granted('ROLE_ADMIN')%}
+        <a class="nav-link" href="{{path('app_admin')}}">Inicio</a>
+        <a class="nav-link" href="{{path('app_admin_secretarias')}}">Lista secretarias</a>
+        <a class="nav-link" href="{{path('app_admin_reserva')}}">Reservar</a>
+        <a class="nav-link" href="{{path('app_admin_secretaria')}}">Registrar secretaria</a>
+        {% elseif is_granted('ROLE_SECRETARIA')%}
+         <a class="nav-link" href="{{path('app_secretaria')}}">Reservas generadas</a>
+        <a class="nav-link" href="{{path('app_secretaria_clientes')}}">Reservas de Clientes</a>
+        {% endif %}
+        <a class="nav-link text-light" href="{{path('app_logout')}}"><span class="bi bi-box-arrow-right mr-1"></span>Cerrar sesión</a>
+      </div>
+    </div>
+  </nav>
+        {% block body %}{% endblock %}
+    </body>
+    
+</html>

@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Admin | Inicio{% endblock %}
+
+{% block body %}
+  <h1>Bienvenido, Administrador </h1>
+  <h2>Reservas </h2>
+  {% if not lista is empty %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>ID BUS</th>
+                <th>Info bus</th>
+                <th>Horario</th>
+                <th>Estado</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for reserva in lista %}
+            <tr>
+                <td>{{reserva.idReserva}}</td>
+                <td>{{reserva.idBus.idBus}}</td>
+                <td>{{reserva.idBus.informacion}}</td>
+                <td>{{reserva.horario.format('d/m/Y H:i:s')}}</td>
+                <td>{{reserva.estadoReserva}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>No hay reservas para presentar</p>
+{% endif %}
+{% endblock %}

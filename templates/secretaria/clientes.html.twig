@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Secretaria | Clientes{% endblock %}
+
+{% block body %}
+  <h2>Reservas de clientes</h2>
+  {% if not lista is empty %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>ID Bus</th>
+                <th>ID Cliente</th>
+                <th>Info bus</th>
+                <th>Estado</th>
+                <th>Observación</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for reserva in lista %}
+            <tr>
+                <td>{{reserva.idReserva}}</td>
+                <td>{{reserva.idBus.idBus}}</td>
+                <td>{{reserva.idUsuario.idUsuario}}</td>
+                <td>{{reserva.idBus.informacion}}</td>
+                <td>{{reserva.estadoReserva}}</td>
+                <td>{{reserva.observacion}}</td>
+                <td>
+                  <a href="{{path('app_secretaria_infocliente',{id:reserva.idUsuario.idUsuario})}}" class="btn btn-warning">Ver cliente</a>
+                {% if reserva.estadoReserva == "Reservado" %}
+                    <a href="{{path('app_secretaria_aprobar',{id:reserva.idReserva})}}" class="btn btn-success">Aceptar</a>
+                    <a href="{{path('app_secretaria_rechazar',{id:reserva.idReserva})}}" class="btn btn-danger">Rechazar</a>
+                {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>No hay reservas para presentar</p>
+{% endif %}
+{% endblock %}

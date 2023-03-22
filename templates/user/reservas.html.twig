@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Cliente | Mis Reservas{% endblock %}
+
+{% block body %}
+
+  <h2>Mis reserva</h2>
+  {% if not lista is empty %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Info bus</th>
+                <th>Estado bus</th>
+                <th>Horario</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for reserva in lista %}
+            <tr>
+                <td>{{reserva.idBus.informacion}}</td>
+                <td>{{reserva.idBus.estadoBus}}</td>
+                <td>{{reserva.horario.format('d/m/Y H:i:s')}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>No hay reservas para presentar</p>
+{% endif %}
+{% endblock %}

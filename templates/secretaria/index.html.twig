@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Secretaria | Inicio{% endblock %}
+
+{% block body %}
+  <h2>Reservas generadas</h2>
+  {% if not lista is empty %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>ID BUS</th>
+                <th>Info bus</th>
+                <th>Horario</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for reserva in lista %}
+            <tr>
+                <td>{{reserva.idReserva}}</td>
+                <td>{{reserva.idBus.idBus}}</td>
+                <td>{{reserva.idBus.informacion}}</td>
+                <td>{{reserva.horario.format('d/m/Y H:i:s')}}</td>
+                <td>{{reserva.estadoReserva}}</td>
+                <td>
+                {% if reserva.estadoReserva == "Creado" %}
+                    <a href="{{path('app_secretaria_aprobar',{id:reserva.idReserva})}}" class="btn btn-success">Aprobar</a>
+                    <a href="{{path('app_secretaria_denegar',{id:reserva.idReserva})}}"class="btn btn-danger">Denegar</a>
+                {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>No hay reservas para presentar</p>
+{% endif %}
+{% endblock %}

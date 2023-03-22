@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Reserva index{% endblock %}
+
+{% block body %}
+    <h1>Reserva index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>IdReserva</th>
+                <th>Observacion</th>
+                <th>EstadoReserva</th>
+                <th>Estado</th>
+                <th>Horario</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for reserva in reservas %}
+            <tr>
+                <td>{{ reserva.idReserva }}</td>
+                <td>{{ reserva.observacion }}</td>
+                <td>{{ reserva.estadoReserva }}</td>
+                <td>{{ reserva.estado }}</td>
+                <td>{{ reserva.horario ? reserva.horario|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_reserva_show', {'idReserva': reserva.idReserva}) }}">show</a>
+                    <a href="{{ path('app_reserva_edit', {'idReserva': reserva.idReserva}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_reserva_new') }}">Create new</a>
+{% endblock %}
