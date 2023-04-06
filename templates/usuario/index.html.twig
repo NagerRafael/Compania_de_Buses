@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Usuario index
+{% endblock %}
+
+{% block body %}
+	<div>
+		<header>
+			{{ include("components/_navbar.html.twig") }}
+		</header>
+		{{ include("components/_breadcrumb.html.twig", 
+			{'navegacion':[
+				{
+					'name':'Dashbord',
+					'route':'app_home'
+				},
+				{
+					'name':'Usuario',
+					'route':'app_usuario_index'
+				}
+			]}
+		)}}
+	</div>
+	<div class="container text-center ">
+		<div class="row">
+
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Nombre</th>
+						<th>Correo</th>
+						<th>Estado</th>
+						<th>actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for usuario in usuarios %}
+						<tr>
+							<td>{{ usuario.nombre }}</td>
+							<td>{{ usuario.correo }}</td>
+							<td>{{ usuario.estado }}</td>
+							<td>
+								<a href="{{ path('app_usuario_show', {'idUsuario': usuario.idUsuario}) }}">show</a>
+								{% if is_granted('ROLE_SUPER_ADMIN') %}
+									<a href="{{ path('app_usuario_edit', {'idUsuario': usuario.idUsuario}) }}">edit</a>
+								{% endif %}
+							</td>
+						</tr>
+					{% else %}
+						<tr>
+							<td colspan="7">no records found</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+			{% if is_granted('ROLE_SUPER_ADMIN') %}
+				<a href="{{ path('app_usuario_new') }}">Create new</a>
+			{% endif %}
+
+		</div>
+	</div>
+
+
+{% endblock %}

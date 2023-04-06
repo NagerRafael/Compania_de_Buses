@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Usuario
+{% endblock %}
+
+{% block body %}
+	<div>
+		<header>
+			{{ include("components/_navbar.html.twig") }}
+		</header>
+		{{ include("components/_breadcrumb.html.twig", 
+			{'navegacion':[
+				{
+					'name':'Dashbord',
+					'route':'app_home'
+				},
+				{
+					'name':'Usuario',
+					'route':'app_usuario_index'
+				},
+				{
+					'name':'Crear',
+					'route':'app_usuario_new'
+				},
+			]}
+		)}}
+	</div>
+	<div class="container">
+
+		{{ include('usuario/_form.html.twig') }}
+
+		<a href="{{ path('app_usuario_index') }}">back to list</a>
+	</div>
+{% endblock %}

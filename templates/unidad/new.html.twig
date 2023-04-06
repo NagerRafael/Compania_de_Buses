@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Unidad
+{% endblock %}
+
+{% block body %}
+	<div>
+		<header>
+			{{ include("components/_navbar.html.twig") }}
+		</header>
+		{{ include("components/_breadcrumb.html.twig", 
+			{'navegacion':[
+				{
+					'name':'Dashbord',
+					'route':'app_home'
+				},
+				{
+					'name':'Unidad',
+					'route':'app_unidad_index'
+				},
+				{
+					'name':'Crear',
+					'route':'app_unidad_new'
+				},
+			]}
+		)}}
+	</div>
+	<div class="container">
+
+		{{ include('unidad/_form.html.twig') }}
+
+		<a href="{{ path('app_unidad_index') }}">back to list</a>
+	</div>
+{% endblock %}

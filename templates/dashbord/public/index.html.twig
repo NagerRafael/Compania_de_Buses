@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello DashbordController!
+{% endblock %}
+
+{% block body %}
+	<div>
+		<header>
+			{{ include("components/_navbar.html.twig") }}
+		</header>
+		{{ include("components/_breadcrumb.html.twig", 
+			{'navegacion':[
+				{
+					'name':'Dashbord',
+					'route':'app_dashbord_admin'
+				}
+			]}
+		)}}
+	</div>
+	<div class="container">
+		<div class="card-deck">
+			{{ include("components/_card.html.twig", 
+				{'operaciones':[
+					{
+						'name':'Reservas',
+						'descrip':'Operaciones',
+						'route':'app_reserva_index'
+					}
+				]}
+			)}}
+			{% if is_granted('ROLE_SECRETARIA') %}
+				{{ include("components/_card.html.twig", 
+				{'operaciones':[
+					{
+						'name':'Clientes',
+						'descrip':'Operaciones',
+						'route':'app_usuario_index'
+					}
+				]}
+			)}}
+			{% endif %}
+		</div>
+	</div>
+	{{ include("components/_footer.html.twig") }}
+{% endblock %}

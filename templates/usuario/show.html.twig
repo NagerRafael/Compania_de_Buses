@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Usuario
+{% endblock %}
+
+{% block body %}
+	<div>
+		<header>
+			{{ include("components/_navbar.html.twig") }}
+		</header>
+		{{ include("components/_breadcrumb.html.twig", 
+			{'navegacion':[
+				{
+					'name':'Dashbord',
+					'route':'app_home'
+				},
+				{
+					'name':'Usuario',
+					'route':'app_usuario_index'
+				},
+				{
+					'name':'Mostrar',
+					'route':'app_usuario_index'
+				},
+			]}
+		)}}
+	</div>
+
+	<div class="container text-center ">
+		<div class="row ">
+			<table class="table">
+				<tbody>
+					<tr>
+						<th>IdUsuario</th>
+						<td>{{ usuario.idUsuario }}</td>
+					</tr>
+					<tr>
+						<th>Nombre</th>
+						<td>{{ usuario.nombre }}</td>
+					</tr>
+					<tr>
+						<th>Correo</th>
+						<td>{{ usuario.correo }}</td>
+					</tr>
+					{% if is_granted('ROLE_SUPER_ADMIN') %}
+						<tr>
+							<th>Clave</th>
+							<td>{{ usuario.clave }}</td>
+						</tr>
+						<tr>
+							<th>Estado</th>
+							<td>{{ usuario.estado }}</td>
+						</tr>
+						<tr>
+							<th>Roles</th>
+							<td>{{ usuario.roles ? usuario.roles|json_encode : '' }}</td>
+						</tr>
+					{% endif %}
+				</tbody>
+			</table>
+		</div>
+		<div class="row ">
+			<a href="{{ path('app_usuario_index') }}">back to list</a>
+			{% if is_granted('ROLE_SUPER_ADMIN') %}
+				<a href="{{ path('app_usuario_edit', {'idUsuario': usuario.idUsuario}) }}">edit</a>
+
+				{{ include('usuario/_delete_form.html.twig') }}
+			{% endif %}
+		</div>
+	</div>
+
+
+{% endblock %}

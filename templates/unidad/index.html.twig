@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Unidad index
+{% endblock %}
+
+{% block body %}
+	<div>
+		<header>
+			{{ include("components/_navbar.html.twig") }}
+		</header>
+		{{ include("components/_breadcrumb.html.twig", 
+			{'navegacion':[
+				{
+					'name':'Dashbord',
+					'route':'app_home'
+				},
+				{
+					'name':'Unidad',
+					'route':'app_unidad_index'
+				}
+			]}
+		)}}
+	</div>
+	<div class="container text-center ">
+		<div class="row">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>IdUnidad</th>
+						<th>Codigo</th>
+						<th>Capacidad</th>
+						<th>Estado</th>
+						<th>Placa</th>
+						<th>actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for unidad in unidads %}
+						<tr>
+							<td>{{ unidad.idUnidad }}</td>
+							<td>{{ unidad.codigo }}</td>
+							<td>{{ unidad.capacidad }}</td>
+							<td>{{ unidad.estado }}</td>
+							<td>{{ unidad.placa }}</td>
+							<td>
+								<a href="{{ path('app_unidad_show', {'idUnidad': unidad.idUnidad}) }}">show</a>
+								<a href="{{ path('app_unidad_edit', {'idUnidad': unidad.idUnidad}) }}">edit</a>
+							</td>
+						</tr>
+					{% else %}
+						<tr>
+							<td colspan="6">no records found</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+
+			<a href="{{ path('app_unidad_new') }}">Create new</a>
+		</div>
+	</div>
+
+
+{% endblock %}

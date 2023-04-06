@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Usuario
+{% endblock %}
+
+{% block body %}
+	<div>
+		<header>
+			{{ include("components/_navbar.html.twig") }}
+		</header>
+		{{ include("components/_breadcrumb.html.twig", 
+			{'navegacion':[
+				{
+					'name':'Dashbord',
+					'route':'app_home'
+				},
+				{
+					'name':'Usuario',
+					'route':'app_usuario_index'
+				},
+				{
+					'name':'Editar',
+					'route':'app_usuario_index'
+				},
+			]}
+		)}}
+	</div>
+	<div class="container">
+		<div class="row ">
+			<div class="col text-left">
+				<a href="{{ path('app_usuario_index') }}">back to list</a>
+			</div>
+			<div class="col text-right">
+				{% if is_granted('ROLE_SUPER_ADMIN') %}
+					{{ include('usuario/_delete_form.html.twig') }}
+				{% endif %}
+
+			</div>
+		</div>
+		{{ include('usuario/_form.html.twig', {'button_label': 'Update'}) }}
+	</div>
+
+	
+
+	
+
+	
+{% endblock %}

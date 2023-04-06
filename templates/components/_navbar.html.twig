@@ -1,0 +1,14 @@
+<nav class="navbar navbar-expand-lg bg-dark ">
+	<a class="navbar-brand text-light" href="#">Buses HIJ</a>
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+	<div class="collapse navbar-collapse " id="navbarText">
+		<ul class="navbar-nav mr-auto"></ul>
+		{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+			<a href="{{ path('app_logout')}}" class="btn btn-dark">Cerrar Sesion</a>
+		{% else %}
+			<a href="{{ path('app_login') }}" class="btn btn-dark">Iniciar Sesion</a>
+		{% endif %}
+	</div>
+</nav>
